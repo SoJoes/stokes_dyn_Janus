@@ -279,6 +279,7 @@ def generate_output_FTSUOE(
         gen_times = [0, 0, 0]
 
     else:
+        # generate grand resistance matrix R
         if not np.array_equal(box_bottom_left - box_top_right, np.array([0, 0, 0])):
             # periodic
             (grand_resistance_matrix, heading, last_generated_Minfinity_inverse,

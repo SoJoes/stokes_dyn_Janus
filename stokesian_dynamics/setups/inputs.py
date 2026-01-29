@@ -6,7 +6,7 @@ import numpy as np
 from functions.simulation_tools import empty_vectors
 from functions.shared import posdata_data, throw_error
 from setups.functions_inputs import (oscillatory_shear, constant_shear,
-                                     repulsion_forces)
+                                     repulsion_forces, modified_repulsion_forces, attractive_forces, lennard_jones)
 from setups.functions_positions import simple_cubic_8
 from setups.tests.inputs import input_ftsuoe_tests
 
@@ -134,6 +134,7 @@ def input_ftsuoe(n, posdata, frameno, timestep, last_velocities,
             - natural_deltax*dumbbell_deltax[i]/np.linalg.norm(dumbbell_deltax[i])
         ))
             for i in range(num_dumbbells)]
+
         # Simple shear with speed gammadot
         # amplitude is amplitude at z = 1
         (Ea_in, U_infinity, O_infinity, centre_of_background_flow,
@@ -146,9 +147,10 @@ def input_ftsuoe(n, posdata, frameno, timestep, last_velocities,
     elif n == 4:
         # Repulsive force
         (Fa_in, Fb_in, DFb_in) = repulsion_forces(
-            50, 20, num_spheres, num_dumbbells, sphere_positions,
+            50, 100, num_spheres, num_dumbbells, sphere_positions,
             dumbbell_positions, dumbbell_deltax, sphere_sizes,
             dumbbell_sizes, num_sphere_in_each_lid, Fa_in, Fb_in, DFb_in)
+
         desc = "repulsion"
 
     elif n == 5:
@@ -182,6 +184,46 @@ def input_ftsuoe(n, posdata, frameno, timestep, last_velocities,
             gammadot=1, frameno=frameno, timestep=timestep,
             num_spheres=num_spheres)
         desc = "constant-shear"
+
+    elif n == 8:
+        # my force sandbox
+        (Fa_in, Fb_in, DFb_in) = lennard_jones(
+            0.5, 1.9, num_spheres, num_dumbbells, sphere_positions,
+            dumbbell_positions, dumbbell_deltax, sphere_sizes,
+            dumbbell_sizes, num_sphere_in_each_lid, Fa_in, Fb_in, DFb_in)
+
+    elif n == 9:
+        # using ufte
+        Ua_in = ([[0, 0, 0] for _ in range(num_spheres)])
+        Fa_in = [[0, 0, 0] for _ in range(num_spheres)]
+
+        # need force in order to move dumbbells? why?
+        #Fb_in = [[10, 0, 0] for _ in range(num_dumbbells)]
+
+        # Repulsive forces
+        '''(Fa_in, Fb_in, DFb_in) = repulsion_forces(
+            50, 100, num_spheres, num_dumbbells, sphere_positions,
+            dumbbell_positions, dumbbell_deltax, sphere_sizes,
+            dumbbell_sizes, num_sphere_in_each_lid, Fa_in, Fb_in, DFb_in)'''
+
+        # Attractive forces between dumbbell beads to keep them together
+        (Fa_in, Fb_in, DFb_in) = attractive_forces(
+            5, 0.23, num_spheres, num_dumbbells, sphere_positions,
+            dumbbell_positions, dumbbell_deltax, sphere_sizes,
+            dumbbell_sizes, num_sphere_in_each_lid, Fa_in, Fb_in, DFb_in)
+
+        # random motion of dumbbells
+        ran_moves = 2*(np.random.rand(num_dumbbells,2)-1) # TODO: may want to change to fixed magnitude
+
+        Ub_in = np.zeros((num_dumbbells, 3))
+        Ub_in[:,0] = ran_moves[:,0]
+        Ub_in[:,2] = ran_moves[:,1]
+
+        Fb_in = Ub_in.copy()
+
+        # periodic bcs
+        box_bottom_left = np.array([-5,0,-5])
+        box_top_right = np.array([5,1,5])
 
     else:
         throw_error("The input setup number you have requested (" + str(n) +

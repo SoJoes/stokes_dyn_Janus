@@ -18,13 +18,12 @@ import numpy as np
 from numba import config
 from functions.shared import throw_error
 
-
 # ----------------------------------------------------------------------------|
 # BASIC SETTINGS
 
 setup_number = 1
 input_number = 1
-fully_2d_problem = False
+fully_2d_problem = True
 
 # Timestep (default = 0.1)
 timestep = 0.1
@@ -73,7 +72,7 @@ cutoff_factor = 2
 
 # Timestepping scheme: Choose explicit timestep from: ['euler', 'ab2', 'rk4']
 # (ab2=Adams Bashforth)
-timestepping_scheme = 'euler'
+timestepping_scheme = 'rk4'
 
 # If using RK4, do you want to generate Minfinity for each of the 4 stages
 # (True), or just for the initial stage (False)? In the absence of R2Bexact,
@@ -108,7 +107,7 @@ view_graphics = True
 bead_bead_interactions = True
 
 # Explosion protection? (Dumbbells with dx > 5 stops the execution)
-explosion_protection = False
+explosion_protection = True
 
 # Save positions/forces every n timesteps?
 start_saving_after_first_n_timesteps = 0
@@ -144,13 +143,13 @@ use_Minfinity_only = False
 use_drag_R2Binfinity = False
 
 # Turn Numba on or off
-config.DISABLE_JIT = True
+config.DISABLE_JIT = False
 
 # ----------------------------------------------------------------------------|
 # GRAPHICAL SETTINGS
 
 # If generating video, what should we be able to see?
-viewbox_bottomleft_topright = np.array([[-15, 0, -15], [15, 1, 15]])
+viewbox_bottomleft_topright = np.array([[-5, 0, -5], [5, 1, 5]])
 
 # Viewing angle on video, (elev,azim).
 # e.g. (0,-90) = x-z plane; (30,-60) = Matplotlib default.

@@ -140,8 +140,8 @@ def generate_frame(frameno, grand_mobility_matrix, view_graphics=True,
                    cutoff_factor=2, viewbox_bottomleft_topright=np.array([]),
                    printout=0, view_labels=False, timestep=0.1, trace_paths=0,
                    input_form='general', filename='', output_folder='output',
-                   legion_random_id='', box_bottom_left=np.array([0, 0, 0]),
-                   box_top_right=np.array([0, 0, 0])):
+                   legion_random_id='', box_bottom_left=np.array([-5, 0, -5]),
+                   box_top_right=np.array([5, 0, 5])):
     """Perform one timestep of the Stokesian Dynamics simulation."""
     global posdata, previous_step_posdata, times
     global spheres, dumbbell_lines, dumbbell_spheres, sphere_lines
@@ -181,6 +181,8 @@ def generate_frame(frameno, grand_mobility_matrix, view_graphics=True,
         if not np.array_equal(box_bottom_left-box_top_right, np.array([0, 0, 0])):
             periodic = True
         else:
+            print("HELLO?")
+            print(box_bottom_left, box_top_right)
             periodic = False
 
         # Input the positions of the particles
@@ -672,7 +674,7 @@ def generate_frame(frameno, grand_mobility_matrix, view_graphics=True,
                     ax, frameno, posdata_final, previous_step_posdata,
                     trace_paths, sphere_trace_lines, Fa_out)
 
-            no_line = True
+            no_line = False
             if num_dumbbells > 0:
                 (dumbbell_spheres, dumbbell_lines,
                  dumbbell_trace_lines) = plot_all_dumbbells(

@@ -428,6 +428,11 @@ def feed_particles_from_bottom(posdata, feed_every_n_timesteps, feed_from_file,
 def shear_basis_vectors(basis_canonical, box_dimensions,
                         Ot_infinity, Et_infinity):
     """Shear the basis vectors representing the periodic box."""
+    # ensure C-continguity for vectors
+    basis_canonical = np.copy(basis_canonical.astype(np.float64))
+    Et_infinity = np.copy(Et_infinity.astype(np.float64))
+    Ot_infinity = np.copy(Ot_infinity.astype(np.float64))
+
     sheared_basis_vectors_add_on = (np.cross(Ot_infinity, basis_canonical).transpose()
                                     + np.dot(Et_infinity, basis_canonical.transpose())).transpose()
 

@@ -25,9 +25,9 @@ Run
 '''
 
 # Specify the name of the output file created from the above simulation
-output_filename = 'name_of_output_file_without_extension'
+output_filename = '2511121522-s1-i1-1fr-t1p0-M1-gravity'
 
-data1 = np.load(f"../output/{output_filename}.npz")
+data1 = np.load(f"../stokesian_dynamics/output/{output_filename}.npz")
 forces_on_particles = data1['Fa'][0]  # At timestep 0
 number_of_particles = forces_on_particles.shape[0]
 sphere_size = 1

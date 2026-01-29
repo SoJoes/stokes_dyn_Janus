@@ -96,11 +96,11 @@ def pos_setup(n):
     elif n == 5:
         # Example (e)
         # Randomly arranged spheres
-        num_spheres = 41
+        num_spheres = 15
         sphere_sizes = np.array([1 for _ in range(num_spheres)])
         # L is how wide you want to box for all the particles to fit inside
         # (not just putting the centres inside this box)
-        L = 16.2
+        L = 10
         # This will put the centres in a given box size
         sphere_positions = randomise_spheres(
             [-L/2+1, 0, -L/2+1], [L/2-1, 0, L/2-1], sphere_sizes,
@@ -114,8 +114,8 @@ def pos_setup(n):
     elif n == 6:
         # Example (f)
         # Two walls of spheres with dumbbells randomly distributed between them.
-        num_spheres_per_wall = 45
-        num_random_dumbbells = 100*2
+        num_spheres_per_wall = 15
+        num_random_dumbbells = 20
 
         sphere_sizes = np.array([1 for _ in range(num_spheres_per_wall*2)])
         sep = 2.00001
@@ -171,6 +171,40 @@ def pos_setup(n):
         (sphere_sizes, sphere_positions, sphere_rotations, dumbbell_sizes,
          dumbbell_positions, dumbbell_deltax) = same_setup_as('FILENAME',
                                                               frameno=0)
+
+    elif n==9:
+        # My example
+        # Colloids and dumbbells
+
+        sphere_sizes = np.array([1, 1])
+        sphere_positions = np.array([[-2, 0, 0], [0, 0, 0]])
+        sphere_rotations = add_sphere_rotations_to_positions(
+            sphere_positions, sphere_sizes, np.array([[1, 0, 0], [0, 0, 1]]))
+
+        # 2 dumbbells
+        dumbbell_sizes = np.array([0.2])
+        dumbbell_positions = np.array([[1.5, 0, 0]])
+        dumbbell_deltax = np.array([[1, 0, 1]])
+
+    elif n==10:
+        # random dumbbells
+        num_random_dumbbells = 100
+
+        # initial spheres
+        sphere_sizes = np.array([1, 1])
+        sphere_positions = np.array([[-2, 0, 0], [0, 0, 0]])
+        sphere_rotations = add_sphere_rotations_to_positions(
+            sphere_positions, sphere_sizes, np.array([[1, 0, 0], [0, 0, 1]]))
+
+        # generate dumbbell positions
+        dumbbell_sizes = np.array([0.1 for _ in range(num_random_dumbbells)])
+
+        random_box_bottom_left = [-5, 0, -5 + 2 * dumbbell_sizes[0]]
+        random_box_top_right = [5, 0, 5 - 2 * dumbbell_sizes[0]]
+
+        (dumbbell_positions, dumbbell_deltax) = randomise_dumbbells(
+            random_box_bottom_left, random_box_top_right, dumbbell_sizes, dx=0.2,
+            phi=0, current_sphere_sizes=sphere_sizes, current_sphere_positions=sphere_positions)
 
 
     else:

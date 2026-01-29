@@ -26,7 +26,7 @@ from functions.shared import shear_basis_vectors, format_elapsed_time
 from setups.positions import pos_setup
 from setups.inputs import input_ftsuoe
 
-
+print(matplotlib.__version__)
 
 matplotlib.use('Agg')
 
@@ -311,7 +311,7 @@ generate_frame_args = [viewbox_bottomleft_topright, view_labels, timestep,
                        trace_paths, num_frames_override_start]
 ani = animation.FuncAnimation(fig, generate_frame, frames=num_frames,
                               fargs=generate_frame_args, repeat=False,
-                              interval=200, save_count=num_frames)
+                              interval=200)
 mywriter = animation.FFMpegWriter(fps=8)
 try:
     ani.save(video_folder + filename + '.mp4', writer=mywriter)
