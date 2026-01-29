@@ -1,10 +1,3 @@
-# REQUIRES PYTENTIAL
-
-# TODO: CHANGE INPUTS
-# TODO: CHANGE OUTPUTS
-# TODO: TURN INTO REGULAR CALLABLE FUNCTION
-# TODO: NEATEN IMPORTS
-
 import numpy as np
 import numpy.linalg as la
 
@@ -17,6 +10,9 @@ from meshmode.dof_array import DOFArray
 
 from pytential import bind, sym
 from pytential.target import PointsTarget
+
+# my file
+from my_laplace_kernel import ScreenedLaplaceKernel
 
 
 # {{{ set some constants for use below
@@ -46,7 +42,7 @@ class Janus_particle_array:
                     A=np.diag([mesh_scale, mesh_scale]),
                     b=position) for position in positions]
 
-def main(mesh_name="ellipse", visualize=False):
+def main(visualize=False, particle_pos=None, particle_facing=None):
     import logging
     logging.basicConfig(level=logging.INFO)  # INFO for more progress info
 
@@ -60,17 +56,9 @@ def main(mesh_name="ellipse", visualize=False):
                 np.linspace(0, 1, nelements+1),
                 mesh_order)
 
-        mesh = ellipse1.mesh
-
-    nx = 2
-    ny = 2
-    dx = 2 / nx
-
     Januses = Janus_particle_array(
-        positions = np.array([[dx*(i_x - nx/2), dx*(j_y-ny/2)]
-                             for i_x in range(nx)
-                             for j_y in range(ny)]),
-        facings = np.ones(nx*ny) * np.pi, # * np.random.rand(),
+        positions = particle_pos,
+        facings = particle_facing,
         base_mesh = base_mesh,
         mesh_scale = dx*0.25
     )
@@ -302,34 +290,41 @@ def main(mesh_name="ellipse", visualize=False):
 
     integral_weights = bind(density_discr, dS)(actx)
 
-    forces_x = []
-    forces_y = []
-    torques = []
+    n_particles = len(force_density_x)
 
-    for igrp in range(len(force_density_x)):
+    forces_x = np.ones(n_particles)
+    forces_y = np.ones(n_particles)
+    torques = np.ones(n_particles)
+
+    for igrp in range(n_particles):
         # manual node.sum
         fx = actx.to_numpy(
             actx.np.sum(force_density_x[igrp] * integral_weights[igrp])
-        )
+          )
         fy = actx.to_numpy(
             actx.np.sum(force_density_y[igrp] * integral_weights[igrp])
-        )
-        t = actx.to_numpy(actx.np.sum(torque_density[igrp] * integral_weights[igrp]))
+          )
+        t = actx.to_numpy(
+            actx.np.sum(torque_density[igrp] * integral_weights[igrp])
+            )
 
-        forces_x.append(fx)
-        forces_y.append(fy)
-        torques.append(t)
+        forces_x[igrp] = fx
+        forces_y[igrp] = fy
+        torques[igrp] = t
 
-    forces_x = np.array(forces_x, dtype=np.float64)
-    forces_y = np.array(forces_y, dtype=np.float64)
-    torques = np.array(torques, dtype=np.float64)
-
-    print("Force_x", forces_x)
-    print("Force_y", forces_y)
-    print("Torque", torques)
-
-    # }}}
+    return(forces_x, forces_y, torques)
 
 
 if __name__ == "__main__":
-    main(mesh_name="ellipse_array")
+    nx = 2
+    ny = 2
+    dx = 2 / nx
+
+    my_pos = np.array([[dx*(i_x - nx/2), dx*(j_y-ny/2)]
+                              for i_x in range(nx)
+                              for j_y in range(ny)])
+
+    my_facings = np.ones(nx*ny) * np.pi # * np.random.rand(),
+
+    print(main(particle_pos = my_pos,
+               particle_facing=my_facings))
