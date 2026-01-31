@@ -45,6 +45,8 @@ def pos_setup(n):
         sphere_positions = np.array([[4*i, 0, 0] for i in range(num_spheres)])
         sphere_rotations = add_sphere_rotations_to_positions(
             sphere_positions, sphere_sizes, np.array([[1, 0, 0], [0, 0, 1]]))
+
+
         dumbbell_sizes = np.array([])
         dumbbell_positions = np.empty([0, 3])
         dumbbell_deltax = np.empty([0, 3])
@@ -206,6 +208,45 @@ def pos_setup(n):
             random_box_bottom_left, random_box_top_right, dumbbell_sizes, dx=0.2,
             phi=0, current_sphere_sizes=sphere_sizes, current_sphere_positions=sphere_positions)
 
+    elif n==11:
+        # micelle forming positions
+        # number janus particles in x and y axes
+        nx = 2
+        ny = 2
+        dx = 6 / nx
+        dy = 6 / ny
+
+        my_pos = np.array([[dx * (i_x - nx / 2), 0, dy * (j_y - ny / 2)]
+                           for i_x in range(nx)
+                           for j_y in range(ny)]) + np.array([dx * nx/4, 0, dy * ny/4])
+        my_rotations = np.ones(nx*ny) * np.pi
+
+        # code modified from position 1
+        num_spheres = nx*ny
+        sphere_sizes = np.array([1 for _ in range(num_spheres)])
+        sphere_positions = my_pos
+
+        # individually rotated to my_rotations
+        rot1 = np.zeros((3, num_spheres))
+        rot1[0] = np.cos(my_rotations)
+        rot1[2] = -np.sin(my_rotations)
+        rot2 = np.zeros_like(rot1)
+        rot2[0] = -rot1[1]
+        rot2[2] = rot1[0]
+
+        # modified from shared.add_rotations_to_spheres
+        b = np.zeros([num_spheres, 2, sphere_positions.shape[1]])
+        addrot1 = (sphere_sizes * rot1).transpose()
+        addrot2 = (sphere_sizes * rot2).transpose()
+        b[:, 0, :] = sphere_positions + addrot1
+        b[:, 1, :] = sphere_positions + addrot2
+
+        sphere_rotations = b
+
+        # no dumbbells
+        dumbbell_sizes = np.array([])
+        dumbbell_positions = np.empty([0, 3])
+        dumbbell_deltax = np.empty([0, 3])
 
     else:
         throw_error("The position setup number you have requested (" + str(n) +
