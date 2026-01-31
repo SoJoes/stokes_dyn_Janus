@@ -115,15 +115,18 @@ def construct_force_vector_from_fts(posdata, f_spheres, t_spheres, s_spheres,
                                                     num_spheres)
     if num_spheres == 0 and num_dumbbells == 0:
         force_vector = np.array([])
+
     if num_spheres > 0 and num_dumbbells == 0:
         # Converts from numpy array (possibly) to flattened list
         fs = [item for sublist in f_spheres for item in sublist]
         ts = [item for sublist in t_spheres for item in sublist]
         ss = s_spheres_condensed_flat
         force_vector = fs + ts + ss
+
     if num_spheres == 0 and num_dumbbells > 0:
         force_vector = list(np.array([f_dumbbells,
                                       deltaf_dumbbells]).flatten())
+
     if num_spheres > 0 and num_dumbbells > 0:
         fs = [item for sublist in f_spheres for item in sublist]
         ts = [item for sublist in t_spheres for item in sublist]
@@ -131,6 +134,7 @@ def construct_force_vector_from_fts(posdata, f_spheres, t_spheres, s_spheres,
         fd = [item for sublist in f_dumbbells for item in sublist]
         dfd = [item for sublist in deltaf_dumbbells for item in sublist]
         force_vector = fs + ts + ss + fd + dfd
+
     return force_vector
 
 

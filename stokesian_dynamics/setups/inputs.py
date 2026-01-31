@@ -121,7 +121,7 @@ def input_ftsuoe(n, posdata, frameno, timestep, last_velocities,
         # Gravity in periodic domain
         Fa_in[:] = [[0, 0, -1] for _ in range(num_spheres)]
         sphere_positions, box_bottom_left, box_top_right = simple_cubic_8(8)
-        # sphere_positions is ignored inside input_ftsuoe, but to activate
+        #   sphere_positions is ignored inside input_ftsuoe, but to activate
         #   periodicity, you have to set box_bottom_left and box_top_right.
         desc = "gravity-periodic"
 
@@ -240,12 +240,12 @@ def input_ftsuoe(n, posdata, frameno, timestep, last_velocities,
 
         hydrophobic_forces = amphilics(particle_pos = sphere_2dpos, particle_facing = facings)
 
-        Fa_in = np.zeros((num_spheres, 3))
+        # set forces
         Fa_in[:, 0] = hydrophobic_forces[0]
         Fa_in[:, 2] = hydrophobic_forces[1]
 
-        Ta_in = hydrophobic_forces[2]
-        Ea_in[:] = [[[0, 0, 0], [0, 0, 0], [0, 0, 0]] for _ in range(num_spheres)] # no shear
+        # set torque
+        Ta_in[:, 1] = hydrophobic_forces[2]
 
         desc = "amphilic Janus particles"
 

@@ -274,12 +274,6 @@ def amphilics(visualize=False, particle_pos=None, particle_facing=None):
     from pytential.symbolic.primitives import integral as sym_integral
     from pytential.symbolic.primitives import area_element, QWeight
 
-    # original method
-    force_x_sym = sym_integral(1,1, force_integrand_x_sym)
-    force_y_sym = sym_integral(1,1, force_integrand_y_sym)
-    torque_sym = sym_integral(1,1, torque_integrand_sym)
-
-    # new method
     force_density_x = bind(places, force_integrand_x_sym)(actx,sigma=gmres_result.solution,k=k,normal=normal)
     force_density_y = bind(places,force_integrand_y_sym)(actx,sigma=gmres_result.solution,k=k,normal=normal)
     torque_density = bind(places, torque_integrand_sym)(actx, sigma=gmres_result.solution, k=k, normal=normal, r_pos=pos)
@@ -308,6 +302,8 @@ def amphilics(visualize=False, particle_pos=None, particle_facing=None):
 
         forces_x[igrp] = fx
         forces_y[igrp] = fy
-        torques[igrp] = t
+
+        # torque needs to be centred around particle
+        torques[igrp] = t - (Januses.pos_array[igrp][0] * fy - Januses.pos_array[igrp][1] * fx)
 
     return(forces_x, forces_y, torques)
