@@ -225,6 +225,29 @@ def input_ftsuoe(n, posdata, frameno, timestep, last_velocities,
         box_bottom_left = np.array([-5,0,-5])
         box_top_right = np.array([5,1,5])
 
+    elif n == 10:
+        # amphillic potentials
+
+        from pytential_handling.amphilic_Janus_potential import amphilics
+
+        # prepping data for usage with function
+
+        sphere_2dpos = np.zeros((num_spheres, 2))
+        sphere_2dpos[:, 0] = sphere_positions[:, 0]
+        sphere_2dpos[:, 1] = sphere_positions[:, 2]
+
+        facings = np.arccos((sphere_rotations[:,0,0] - sphere_positions[:, 0])/sphere_sizes)
+
+        hydrophobic_forces = amphilics(particle_pos = sphere_2dpos, particle_facing = facings)
+
+        Fa_in = np.zeros((num_spheres, 3))
+        Fa_in[:, 0] = hydrophobic_forces[0]
+        Fa_in[:, 2] = hydrophobic_forces[1]
+
+        Ta_in = hydrophobic_forces[2]
+
+        desc = "amphilic Janus particles"
+
     else:
         throw_error("The input setup number you have requested (" + str(n) +
                     ") is not listed in setups/inputs.py.")

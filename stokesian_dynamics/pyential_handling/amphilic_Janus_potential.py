@@ -42,7 +42,7 @@ class Janus_particle_array:
                     A=np.diag([mesh_scale, mesh_scale]),
                     b=position) for position in positions]
 
-def main(visualize=False, particle_pos=None, particle_facing=None):
+def amphilics(visualize=False, particle_pos=None, particle_facing=None):
     import logging
     logging.basicConfig(level=logging.INFO)  # INFO for more progress info
 
@@ -326,5 +326,5 @@ if __name__ == "__main__":
 
     my_facings = np.ones(nx*ny) * np.pi # * np.random.rand(),
 
-    print(main(particle_pos = my_pos,
+    print(amphilics(particle_pos = my_pos,
                particle_facing=my_facings))
