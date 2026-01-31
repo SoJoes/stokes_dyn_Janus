@@ -177,6 +177,8 @@ def amphilics(visualize=False, particle_pos=None, particle_facing=None):
             hard_failure=True) # figure out gmres
     enablePrint()
 
+    print("gmres succeeded")
+
     # }}}
 
     # {{{ postprocess/visualize
