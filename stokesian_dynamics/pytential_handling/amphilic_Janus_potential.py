@@ -1,5 +1,4 @@
 import numpy as np
-import numpy.linalg as la
 
 from meshmode.array_context import PyOpenCLArrayContext
 from meshmode.discretization import Discretization
@@ -13,7 +12,17 @@ from pytential.target import PointsTarget
 
 # my file
 from pytential_handling.my_laplace_kernel import ScreenedLaplaceKernel
+import sys.stdout, os.devnull
 
+
+# Disable
+def blockPrint():
+    sys.stdout = open(os.devnull, 'w')
+
+
+# Restore
+def enablePrint():
+    sys.stdout = sys.__stdout__
 
 # {{{ set some constants for use below
 
@@ -42,9 +51,6 @@ class Janus_particle_array:
                     b=position) for position in positions]
 
 def amphilics(visualize=False, particle_pos=None, particle_facing=None):
-    import traceback
-    traceback.print_stack(limit=3)
-
     import logging
     logging.basicConfig(level=logging.INFO)  # INFO for more progress info
 
@@ -162,11 +168,14 @@ def amphilics(visualize=False, particle_pos=None, particle_facing=None):
     bvp_rhs = DOFArray(actx, data=tuple(array for array in bvp_rhs))
 
     from pytential.linalg.gmres import gmres
+
+    blockPrint()
     gmres_result = gmres(
             bound_op.scipy_op(actx, sigma_sym.name, dtype=np.complex128, k=k),
             bvp_rhs, tol=1e-8, progress=True,
             stall_iterations=0,
             hard_failure=True) # figure out gmres
+    enablePrint()
 
     # }}}
 

@@ -113,6 +113,7 @@ def input_ftsuoe(n, posdata, frameno, timestep, last_velocities,
         desc = "test"
 
     elif n == 1:
+        print("ran gravity")
         # Gravity
         Fa_in[:] = [[0, 0, -1] for _ in range(num_spheres)]
         desc = "gravity"
