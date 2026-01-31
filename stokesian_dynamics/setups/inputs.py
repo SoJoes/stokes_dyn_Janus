@@ -241,10 +241,12 @@ def input_ftsuoe(n, posdata, frameno, timestep, last_velocities,
         hydrophobic_forces = amphilics(particle_pos = sphere_2dpos, particle_facing = facings)
 
         # set forces
+        Fa_in = np.zeros((num_spheres, 3))
         Fa_in[:, 0] = hydrophobic_forces[0]
         Fa_in[:, 2] = hydrophobic_forces[1]
 
         # set torque
+        Ta_in = np.zeros((num_spheres, 3))
         Ta_in[:, 1] = hydrophobic_forces[2]
 
         desc = "amphilic Janus particles"
