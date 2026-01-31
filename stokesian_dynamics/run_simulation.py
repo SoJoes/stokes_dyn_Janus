@@ -629,6 +629,7 @@ def generate_frame(frameno, grand_mobility_matrix, view_graphics=True,
             and frameno % save_forces_every_n_timesteps == 0
             and frameno >= start_saving_after_first_n_timesteps
         ):
+            print("ON FRAME", frameno)
             if frameno == start_saving_after_first_n_timesteps:  # usually 0
                 saved_Fa_out = np.array([Fa_out])
                 saved_Fb_out = np.array([Fb_out])
