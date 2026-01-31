@@ -635,9 +635,13 @@ def generate_frame(frameno, grand_mobility_matrix, view_graphics=True,
                 saved_DFb_out = np.array([DFb_out])
                 saved_Sa_out = np.array([Sa_out])
                 saved_force_on_wall_due_to_dumbbells = np.array([force_on_wall_due_to_dumbbells])
+
+                print("1", type(saved_Fa_out))
             elif frameno != checkpoint_start_from_frame:
                 saved_Fa_out = np.append(np.copy(saved_Fa_out),
                                          np.array([Fa_out]), 0)
+
+                print("2", type(saved_Fa_out), frameno)
                 saved_Fb_out = np.append(np.copy(saved_Fb_out),
                                          np.array([Fb_out]), 0)
                 saved_DFb_out = np.append(np.copy(saved_DFb_out),
@@ -653,6 +657,7 @@ def generate_frame(frameno, grand_mobility_matrix, view_graphics=True,
                 save_forces_every_n_timesteps > 0 and
                 save_forces_and_positions_to_temp_file_as_well and
                 frameno >= start_saving_after_first_n_timesteps):
+            print("3", type(saved_Fa_out))
             np.savez_compressed(output_folder + '/' + filename + legion_random_id + '_TEMP',
                                 Fa=saved_Fa_out, Fb=saved_Fb_out, DFb=saved_DFb_out, Sa=saved_Sa_out,
                                 centres=saved_element_positions, deltax=saved_deltax,
