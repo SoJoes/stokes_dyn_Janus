@@ -12,7 +12,7 @@ from pytential import bind, sym
 from pytential.target import PointsTarget
 
 # my file
-from my_laplace_kernel import ScreenedLaplaceKernel
+from pytential_handling.my_laplace_kernel import ScreenedLaplaceKernel
 
 
 # {{{ set some constants for use below

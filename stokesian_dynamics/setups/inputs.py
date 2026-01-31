@@ -226,7 +226,7 @@ def input_ftsuoe(n, posdata, frameno, timestep, last_velocities,
         box_top_right = np.array([5,1,5])
 
     elif n == 10:
-        # amphillic potentials
+        # amphilic potentials
 
         from pytential_handling.amphilic_Janus_potential import amphilics
 
