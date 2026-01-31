@@ -227,7 +227,7 @@ def input_ftsuoe(n, posdata, frameno, timestep, last_velocities,
 
     elif n == 10:
         # amphillic potentials
-
+        import sys
         sys.path.append("../stokesian_dynamics")
         from pytential_handling.amphilic_Janus_potential import amphilics
 
