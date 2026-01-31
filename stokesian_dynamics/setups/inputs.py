@@ -245,6 +245,7 @@ def input_ftsuoe(n, posdata, frameno, timestep, last_velocities,
         Fa_in[:, 2] = hydrophobic_forces[1]
 
         Ta_in = hydrophobic_forces[2]
+        Ea_in[:] = [[[0, 0, 0], [0, 0, 0], [0, 0, 0]] for _ in range(num_spheres)] # no shear
 
         desc = "amphilic Janus particles"
 
