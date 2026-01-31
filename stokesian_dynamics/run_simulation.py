@@ -46,7 +46,7 @@ from settings import (
     timestepping_scheme, bead_bead_interactions, fully_2d_problem,
     start_saving_after_first_n_timesteps, rk4_generate_minfinity_for_each_stage)
 from resistance_scalars.data import s_dash_range, lam_range_with_reciprocals
-
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 # Input description of simulation
 args = sys.argv[1:]
