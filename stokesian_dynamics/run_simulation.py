@@ -914,6 +914,8 @@ if error == 0:
 
     # Final save
     if save_forces_every_n_timesteps > 0 or save_positions_every_n_timesteps > 0:
+
+        print("4", type(saved_Fa_out))
         np.savez_compressed(output_folder + '/' + filename + legion_random_id + '',
                             Fa=saved_Fa_out, Fb=saved_Fb_out, DFb=saved_DFb_out, Sa=saved_Sa_out,
                             centres=saved_element_positions, deltax=saved_deltax,
