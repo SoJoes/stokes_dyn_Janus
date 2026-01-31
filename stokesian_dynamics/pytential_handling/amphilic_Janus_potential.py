@@ -12,12 +12,13 @@ from pytential.target import PointsTarget
 
 # my file
 from pytential_handling.my_laplace_kernel import ScreenedLaplaceKernel
-import sys.stdout, os.devnull
+import sys
+from os import devnull
 
 
 # Disable
 def blockPrint():
-    sys.stdout = open(os.devnull, 'w')
+    sys.stdout = open(devnull, 'w')
 
 
 # Restore
