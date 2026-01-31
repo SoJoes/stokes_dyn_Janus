@@ -72,7 +72,7 @@ cutoff_factor = 2
 
 # Timestepping scheme: Choose explicit timestep from: ['euler', 'ab2', 'rk4']
 # (ab2=Adams Bashforth)
-timestepping_scheme = 'rk4'
+timestepping_scheme = 'euler'
 
 # If using RK4, do you want to generate Minfinity for each of the 4 stages
 # (True), or just for the initial stage (False)? In the absence of R2Bexact,
