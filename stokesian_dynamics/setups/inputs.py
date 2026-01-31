@@ -9,8 +9,6 @@ from setups.functions_inputs import (oscillatory_shear, constant_shear,
                                      repulsion_forces, modified_repulsion_forces, attractive_forces, lennard_jones)
 from setups.functions_positions import simple_cubic_8
 from setups.tests.inputs import input_ftsuoe_tests
-import sys
-sys.path.append("../stokesian_dynamics")
 
 
 def input_ftsuoe(n, posdata, frameno, timestep, last_velocities,
@@ -229,6 +227,7 @@ def input_ftsuoe(n, posdata, frameno, timestep, last_velocities,
 
     elif n == 10:
         # amphillic potentials
+
         from pytential_handling.amphilic_Janus_potential import amphilics
 
         # prepping data for usage with function
