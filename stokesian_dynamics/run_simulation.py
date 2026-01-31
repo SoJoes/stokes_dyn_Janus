@@ -629,20 +629,18 @@ def generate_frame(frameno, grand_mobility_matrix, view_graphics=True,
             and frameno % save_forces_every_n_timesteps == 0
             and frameno >= start_saving_after_first_n_timesteps
         ):
-            print("ON FRAME", frameno)
-            if frameno == start_saving_after_first_n_timesteps:  # usually 0
+            if 'saved_Fa_out' not in globals():
                 saved_Fa_out = np.array([Fa_out])
                 saved_Fb_out = np.array([Fb_out])
                 saved_DFb_out = np.array([DFb_out])
                 saved_Sa_out = np.array([Sa_out])
                 saved_force_on_wall_due_to_dumbbells = np.array([force_on_wall_due_to_dumbbells])
 
-                print("1", type(saved_Fa_out))
-            elif frameno != checkpoint_start_from_frame:
+            else:
                 saved_Fa_out = np.append(np.copy(saved_Fa_out),
                                          np.array([Fa_out]), 0)
 
-                print("2", type(saved_Fa_out), frameno)
+
                 saved_Fb_out = np.append(np.copy(saved_Fb_out),
                                          np.array([Fb_out]), 0)
                 saved_DFb_out = np.append(np.copy(saved_DFb_out),
@@ -651,6 +649,7 @@ def generate_frame(frameno, grand_mobility_matrix, view_graphics=True,
                                          np.array([Sa_out]), 0)
                 saved_force_on_wall_due_to_dumbbells = np.append(np.copy(saved_force_on_wall_due_to_dumbbells),
                                                                  np.array([force_on_wall_due_to_dumbbells]), 0)
+
 
         # Backup file
         if (save_positions_every_n_timesteps > 0 and
