@@ -14,14 +14,16 @@ import numpy as np
 import os
 import sys
 from pylab import rcParams
-sys.path.append("..")  # Allows importing from SD directory
+sys.path.append("../stokesian_dynamics")  # Allows importing from SD directory
+
 from functions.graphics import (plot_all_spheres, plot_all_dumbbells,
                                 plot_all_torque_lines, plot_all_velocity_lines,
                                 plot_all_angular_velocity_lines)
 from functions.shared import add_sphere_rotations_to_positions
 
 
-filename = 'filename_here'
+filename = 'C:\\Users\sj000\Downloads\\2601311008-s1-i1-1fr-t1p0-M1-gravity.npz'
+graph_title = "testing"
 frameno = 0
 viewing_angle = (0, -90)
 viewbox_bottomleft_topright = np.array([[-15, -15, -15], [15, 15, 15]])
@@ -30,10 +32,11 @@ view_labels = False
 trace_paths = 0
 
 # Naming the folders like this means you can run this script from any directory
-this_folder = os.path.dirname(os.path.abspath(__file__))
-output_folder = this_folder + "/../output/"
+#this_folder = os.path.dirname(os.path.abspath(__file__))
+#output_folder = this_folder + "/../output/"
 
-data1 = np.load(output_folder + filename + ".npz")
+#data1 = np.load(output_folder + filename + ".npz")
+data1 = np.load(filename)
 positions_centres = data1['centres']
 positions_deltax = data1['deltax']
 Fa_out = data1['Fa']
@@ -117,6 +120,6 @@ for q in (dumbbell_lines):
 ax.set_title("  frame "
              + ("{:" + str(len(str(num_frames))) + ".0f}").format(frameno)
              + "/" + str(num_frames-1), loc='left', y=0.97, fontsize=11)
-ax.set_title(filename, loc='center', y=1.055, fontsize=11)
+ax.set_title(graph_title, loc='center', y=1.055, fontsize=11)
 
 plt.show()
