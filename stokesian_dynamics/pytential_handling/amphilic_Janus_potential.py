@@ -59,8 +59,7 @@ def amphilics(visualize=False, particle_pos=None, particle_facing=None):
     Januses = Janus_particle_array(
         positions = particle_pos,
         facings = particle_facing,
-        base_mesh = base_mesh,
-        mesh_scale = dx*0.25
+        base_mesh = base_mesh
     )
 
     meshes = Januses.meshes
