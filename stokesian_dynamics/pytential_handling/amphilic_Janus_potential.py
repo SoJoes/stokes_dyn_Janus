@@ -42,6 +42,9 @@ class Janus_particle_array:
                     b=position) for position in positions]
 
 def amphilics(visualize=False, particle_pos=None, particle_facing=None):
+    import traceback
+    traceback.print_stack(limit=3)
+
     import logging
     logging.basicConfig(level=logging.INFO)  # INFO for more progress info
 
