@@ -129,7 +129,7 @@ def amphilics(visualize=False, particle_pos=None, particle_facing=None):
 
     nodes = actx.thaw(density_discr.nodes())
 
-    def amphilic(x, janus_array, nx, ny):
+    def amphilic(nodes, janus_array):
       x, y = nodes
 
       bc_data = []
@@ -152,7 +152,7 @@ def amphilics(visualize=False, particle_pos=None, particle_facing=None):
 
       return DOFArray(actx, tuple(bc_data))
 
-    bc = amphilic(nodes, Januses, nx, ny)
+    bc = amphilic(nodes, Januses)
 
     bvp_rhs = bind(places, sqrt_w*sym.var("bc"))(actx, bc=bc)
 
