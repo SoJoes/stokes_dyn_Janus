@@ -30,7 +30,6 @@ k = 0.1
 from meshmode.mesh.generation import ellipse, make_curve_mesh
 from functools import partial
 from meshmode.mesh.processing import affine_map, merge_disjoint_meshes
-import pytools.obj_array as obj_array
 
 class Janus_particle_array:
   def __init__(self, positions, facings, base_mesh, mesh_scale=1):
@@ -312,18 +311,3 @@ def amphilics(visualize=False, particle_pos=None, particle_facing=None):
         torques[igrp] = t
 
     return(forces_x, forces_y, torques)
-
-
-if __name__ == "__main__":
-    nx = 2
-    ny = 2
-    dx = 2 / nx
-
-    my_pos = np.array([[dx*(i_x - nx/2), dx*(j_y-ny/2)]
-                              for i_x in range(nx)
-                              for j_y in range(ny)])
-
-    my_facings = np.ones(nx*ny) * np.pi # * np.random.rand(),
-
-    print(amphilics(particle_pos = my_pos,
-               particle_facing=my_facings))
