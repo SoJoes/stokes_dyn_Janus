@@ -249,7 +249,8 @@ def pos_setup(n):
         dumbbell_deltax = np.empty([0, 3])
 
     elif n == 12:
-        same_setup_as('2602061517-s11-i10-5fr-t1p0-M1-amphilic Janus particles', frameno=4)
+        (sphere_sizes, sphere_positions, sphere_rotations, dumbbell_sizes, dumbbell_positions, dumbbell_deltax) = (
+            same_setup_as('2602061517-s11-i10-5fr-t1p0-M1-amphilic Janus particles', frameno=4))
 
     else:
         throw_error("The position setup number you have requested (" + str(n) +
