@@ -101,7 +101,7 @@ email_on_completion = False
 
 # View graphics? (Note: doesn't save a video. To do that, use
 # plot_particle_positions_video.py after the fact.)
-view_graphics = True
+view_graphics = False # DO NOT SET TO TRUE FOR COLAB ENV
 
 # Bead-bead interactions? (Should really always be true)
 bead_bead_interactions = True

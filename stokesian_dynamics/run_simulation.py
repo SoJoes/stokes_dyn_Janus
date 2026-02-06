@@ -47,6 +47,7 @@ from settings import (
     start_saving_after_first_n_timesteps, rk4_generate_minfinity_for_each_stage)
 from resistance_scalars.data import s_dash_range, lam_range_with_reciprocals
 
+
 # Input description of simulation
 args = sys.argv[1:]
 number_of_args = len(args)
@@ -139,8 +140,8 @@ def generate_frame(frameno, grand_mobility_matrix, view_graphics=True,
                    cutoff_factor=2, viewbox_bottomleft_topright=np.array([]),
                    printout=0, view_labels=False, timestep=0.1, trace_paths=0,
                    input_form='general', filename='', output_folder='output',
-                   legion_random_id='', box_bottom_left=np.array([-5, 0, -5]),
-                   box_top_right=np.array([5, 0, 5])):
+                   legion_random_id='', box_bottom_left=np.array([0, 0, 0]),
+                   box_top_right=np.array([0, 0, 0])):
     """Perform one timestep of the Stokesian Dynamics simulation."""
     global posdata, previous_step_posdata, times
     global spheres, dumbbell_lines, dumbbell_spheres, sphere_lines
@@ -180,8 +181,6 @@ def generate_frame(frameno, grand_mobility_matrix, view_graphics=True,
         if not np.array_equal(box_bottom_left-box_top_right, np.array([0, 0, 0])):
             periodic = True
         else:
-            print("HELLO?")
-            print(box_bottom_left, box_top_right)
             periodic = False
 
         # Input the positions of the particles
@@ -629,18 +628,15 @@ def generate_frame(frameno, grand_mobility_matrix, view_graphics=True,
             and frameno % save_forces_every_n_timesteps == 0
             and frameno >= start_saving_after_first_n_timesteps
         ):
-            if 'saved_Fa_out' not in globals():
+            if frameno == start_saving_after_first_n_timesteps:  # usually 0
                 saved_Fa_out = np.array([Fa_out])
                 saved_Fb_out = np.array([Fb_out])
                 saved_DFb_out = np.array([DFb_out])
                 saved_Sa_out = np.array([Sa_out])
                 saved_force_on_wall_due_to_dumbbells = np.array([force_on_wall_due_to_dumbbells])
-
-            else:
+            elif frameno != checkpoint_start_from_frame:
                 saved_Fa_out = np.append(np.copy(saved_Fa_out),
                                          np.array([Fa_out]), 0)
-
-
                 saved_Fb_out = np.append(np.copy(saved_Fb_out),
                                          np.array([Fb_out]), 0)
                 saved_DFb_out = np.append(np.copy(saved_DFb_out),
@@ -650,14 +646,12 @@ def generate_frame(frameno, grand_mobility_matrix, view_graphics=True,
                 saved_force_on_wall_due_to_dumbbells = np.append(np.copy(saved_force_on_wall_due_to_dumbbells),
                                                                  np.array([force_on_wall_due_to_dumbbells]), 0)
 
-
         # Backup file
         if (save_positions_every_n_timesteps > 0 and
                 frameno % save_to_temp_file_every_n_timesteps == 0 and
                 save_forces_every_n_timesteps > 0 and
                 save_forces_and_positions_to_temp_file_as_well and
                 frameno >= start_saving_after_first_n_timesteps):
-            print("3", type(saved_Fa_out))
             np.savez_compressed(output_folder + '/' + filename + legion_random_id + '_TEMP',
                                 Fa=saved_Fa_out, Fb=saved_Fb_out, DFb=saved_DFb_out, Sa=saved_Sa_out,
                                 centres=saved_element_positions, deltax=saved_deltax,
@@ -678,7 +672,7 @@ def generate_frame(frameno, grand_mobility_matrix, view_graphics=True,
                     ax, frameno, posdata_final, previous_step_posdata,
                     trace_paths, sphere_trace_lines, Fa_out)
 
-            no_line = False
+            no_line = True
             if num_dumbbells > 0:
                 (dumbbell_spheres, dumbbell_lines,
                  dumbbell_trace_lines) = plot_all_dumbbells(
@@ -914,8 +908,6 @@ if error == 0:
 
     # Final save
     if save_forces_every_n_timesteps > 0 or save_positions_every_n_timesteps > 0:
-
-        print("4", type(saved_Fa_out))
         np.savez_compressed(output_folder + '/' + filename + legion_random_id + '',
                             Fa=saved_Fa_out, Fb=saved_Fb_out, DFb=saved_DFb_out, Sa=saved_Sa_out,
                             centres=saved_element_positions, deltax=saved_deltax,
