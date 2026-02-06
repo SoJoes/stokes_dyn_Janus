@@ -22,7 +22,7 @@ from functions.graphics import (plot_all_spheres, plot_all_dumbbells,
 from functions.shared import add_sphere_rotations_to_positions
 
 
-filename = 'C:\\Users\sj000\Downloads\\2602061517-s11-i10-5fr-t1p0-M1-amphilic Janus particles.npz'
+filename = 'C:\\Users\sj000\Downloads\\2602061620-s12-i10-5fr-t1p0-M1-amphilic Janus particles.npz'
 graph_title = "testing"
 frameno = 5
 viewing_angle = (0, -90)

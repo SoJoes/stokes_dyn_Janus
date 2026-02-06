@@ -81,7 +81,14 @@ def euler_timestep_rotation(sphere_positions, sphere_rotations,
     rot_matrix = np.empty((3,3))
     for i in range(sphere_positions.shape[0]):
         R0 = sphere_positions[i]
+        # angular velocity of background flow
         O = (Oa_out[i][0] ** 2 + Oa_out[i][1] ** 2 + Oa_out[i][2] ** 2) ** 0.5
+
+        moment_of_inertia = 0.4
+        alpha = Ta_out / moment_of_inertia # angular acceleration
+        omega = timestep * alpha
+
+        O = O + omega # angular velocity of sphere itself (hopefully this works!)
 
         ''' To rotate from basis (x,y,z) to (X,Y,Z), where x,y,z,X,Y,Z are unit
         vectors, you just need to multiply by the matrix
