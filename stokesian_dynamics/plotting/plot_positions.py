@@ -22,9 +22,9 @@ from functions.graphics import (plot_all_spheres, plot_all_dumbbells,
 from functions.shared import add_sphere_rotations_to_positions
 
 
-filename = 'C:\\Users\sj000\Downloads\\2602071242-s11-i10-4fr-t1p0-M1-amphilic Janus particles.npz'
+filename = 'C:\\Users\sj000\Downloads\\2602071359-s11-i10-1fr-t1p0-M1-amphilic Janus particles.npz'
 graph_title = "testing"
-frameno = 4
+frameno = 1
 viewing_angle = (0, -90)
 viewbox_bottomleft_topright = np.array([[-5, -5, -5], [5, 5, 5]])
 two_d_plot = True

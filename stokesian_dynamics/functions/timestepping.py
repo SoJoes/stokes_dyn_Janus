@@ -17,6 +17,7 @@ from functions.simulation_tools import (
     fts_to_fte_matrix, fte_to_ufte_matrix, ufte_to_ufteu_matrix,
     fts_to_duf_matrix)
 from setups.inputs import input_ftsuoe
+from settings import setup_number
 
 
 @njit(cache=True)
@@ -88,9 +89,6 @@ def euler_timestep_rotation(sphere_positions, sphere_rotations,
         alpha = Ta_out[i][1] / moment_of_inertia # angular acceleration
         omega = timestep * alpha
 
-        print("ANGULAR VELOCITIES")
-        print(alpha, omega) # for debugging
-
         O = O + omega # angular velocity of sphere itself (hopefully this works!)
 
         ''' To rotate from basis (x,y,z) to (X,Y,Z), where x,y,z,X,Y,Z are unit
@@ -104,19 +102,23 @@ def euler_timestep_rotation(sphere_positions, sphere_rotations,
         or xhat depending on Omega) and use
         (Omega x zhat, Omega x (Omega x zhat), zhat) as our basis (X,Y,Z).
         That's it! [Only took me three days...]
+        
+        Modified to rotate in response to torque also
         '''
 
-        if np.array_equal(Oa_out[i], np.array([0., 0., 0.])):
+        Oa_Ta_out = Oa_out + Ta_out
+
+        if np.array_equal(Oa_Ta_out[i], np.array([0., 0., 0.])):
             rot_matrix = np.identity(3)
         else:
-            Otest = (np.abs(Oa_out[i] / O)).astype('float')
+            Otest = (np.abs(Oa_Ta_out[i] / O)).astype('float')
             if np.allclose(Otest, np.array([1., 0., 0.])):
                 perp1 = np.array([0., 0., 1.])
             else:
                 perp1 = np.array([1., 0., 0.])
-            rot_matrix[:,0] = np.cross(Oa_out[i], perp1) / O
-            rot_matrix[:,1] = np.cross(Oa_out[i],np.cross(Oa_out[i], perp1)) / O**2
-            rot_matrix[:,2] = Oa_out[i] / O
+            rot_matrix[:,0] = np.cross(Oa_Ta_out[i], perp1) / O
+            rot_matrix[:,1] = np.cross(Oa_Ta_out[i],np.cross(Oa_Ta_out[i], perp1)) / O**2
+            rot_matrix[:,2] = Oa_Ta_out[i] / O
 
         for j in range(2):
             ''' rb0 is the position ("r") of the endpoint of the pointy
