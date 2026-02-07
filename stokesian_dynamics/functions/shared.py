@@ -243,7 +243,6 @@ def add_sphere_rotations_to_positions(sphere_positions, sphere_sizes,
     b[:, 1, :] = sphere_positions + addrot2
     return b
 
-
 def is_dumbbell(a_index, num_spheres):
     return a_index >= num_spheres
 

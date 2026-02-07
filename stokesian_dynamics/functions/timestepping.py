@@ -80,16 +80,17 @@ def euler_timestep_rotation(sphere_positions, sphere_rotations,
     See comments inside the function for details."""
 
     rot_matrix = np.empty((3,3))
+
+    moment_of_inertia = 0.5  # 0.5*radius^2 1 * mass 1
+    alpha = Ta_out / moment_of_inertia  # angular acceleration
+    omega = timestep * alpha  # angular velocity
+
+    Oa_omega_out = Oa_out + omega
+
     for i in range(sphere_positions.shape[0]):
         R0 = sphere_positions[i]
-        # angular velocity of background flow
-        O = (Oa_out[i][0] ** 2 + Oa_out[i][1] ** 2 + Oa_out[i][2] ** 2) ** 0.5
-
-        moment_of_inertia = 0.5 # 0.5*radius^2 1 * mass 1
-        alpha = Ta_out[i][1] / moment_of_inertia # angular acceleration
-        omega = timestep * alpha
-
-        O = O + omega # angular velocity of sphere itself (hopefully this works!)
+        # angular velocity of background flow + sphere
+        O = (Oa_omega_out[i][0] ** 2 + Oa_omega_out[i][1] ** 2 + Oa_omega_out[i][2] ** 2) ** 0.5
 
         ''' To rotate from basis (x,y,z) to (X,Y,Z), where x,y,z,X,Y,Z are unit
         vectors, you just need to multiply by the matrix
@@ -106,27 +107,24 @@ def euler_timestep_rotation(sphere_positions, sphere_rotations,
         Modified to rotate in response to torque also
         '''
 
-        Oa_Ta_out = Oa_out + Ta_out
-
-        if np.array_equal(Oa_Ta_out[i], np.array([0., 0., 0.])):
-            print("Set rotation matric to 0")
+        if np.array_equal(Oa_omega_out[i], np.array([0., 0., 0.])):
             rot_matrix = np.identity(3)
         else:
-            Otest = (np.abs(Oa_Ta_out[i] / O)).astype('float')
+            Otest = (np.abs(Oa_omega_out[i] / O)).astype('float')
             if np.allclose(Otest, np.array([1., 0., 0.])):
                 perp1 = np.array([0., 0., 1.])
             else:
                 perp1 = np.array([1., 0., 0.])
-            rot_matrix[:,0] = np.cross(Oa_Ta_out[i], perp1) / O
-            rot_matrix[:,1] = np.cross(Oa_Ta_out[i],np.cross(Oa_Ta_out[i], perp1)) / O**2
-            rot_matrix[:,2] = Oa_Ta_out[i] / O
+            rot_matrix[:,0] = np.cross(Oa_omega_out[i], perp1) / O
+            rot_matrix[:,1] = np.cross(Oa_omega_out[i],np.cross(Oa_omega_out[i], perp1)) / O**2
+            rot_matrix[:,2] = Oa_omega_out[i] / O
         print("My new basis <3")
         print(rot_matrix)
         for j in range(2):
             ''' rb0 is the position ("r") of the endpoint of the pointy
             rotation vector in the external (x,y,z) frame ("b") at the
             beginning of this process ("0") '''
-            rb0 = sphere_rotations[i, j]
+            rb0 = sphere_rotations[i, j] # rotation vector already made
 
             ''' rbdashdash0_xyz is the position of the same endpoint in the
             frame of the rotating sphere ("b''"), which we set to have the
