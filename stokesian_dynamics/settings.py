@@ -171,11 +171,9 @@ if setup_number>=11:
     using_pytential = True
 
 if using_pytential:
-    import logging
-
-    logging.basicConfig(level=logging.INFO)  # INFO for more progress info
-
-    # want to move this outside function to see if helps w caching things
+    #import logging
+    #logging.basicConfig(level=logging.INFO)  # INFO for more progress info
+    from meshmode.array_context import PyOpenCLArrayContext
     import pyopencl as cl
 
     cl_ctx = cl.create_some_context()
