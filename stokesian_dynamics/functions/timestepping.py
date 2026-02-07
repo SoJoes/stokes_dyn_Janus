@@ -84,8 +84,8 @@ def euler_timestep_rotation(sphere_positions, sphere_rotations,
         # angular velocity of background flow
         O = (Oa_out[i][0] ** 2 + Oa_out[i][1] ** 2 + Oa_out[i][2] ** 2) ** 0.5
 
-        moment_of_inertia = 0.4
-        alpha = Ta_out[i][2] / moment_of_inertia # angular acceleration
+        moment_of_inertia = 0.5 # radius 1, mass 1
+        alpha = Ta_out[i][1] / moment_of_inertia # angular acceleration
         omega = timestep * alpha
 
         O = O + omega # angular velocity of sphere itself (hopefully this works!)
