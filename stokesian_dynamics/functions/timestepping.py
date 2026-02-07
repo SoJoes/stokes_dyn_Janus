@@ -85,7 +85,7 @@ def euler_timestep_rotation(sphere_positions, sphere_rotations,
         O = (Oa_out[i][0] ** 2 + Oa_out[i][1] ** 2 + Oa_out[i][2] ** 2) ** 0.5
 
         moment_of_inertia = 0.4
-        alpha = Ta_out / moment_of_inertia # angular acceleration
+        alpha = Ta_out[i][2] / moment_of_inertia # angular acceleration
         omega = timestep * alpha
 
         O = O + omega # angular velocity of sphere itself (hopefully this works!)
@@ -157,7 +157,7 @@ def ab2_timestep_rotation(sphere_positions, sphere_rotations,
     combined_Oa_for_ab2 = 1.5*Oa_out - 0.5*Oa_out_previous
     return euler_timestep_rotation(sphere_positions, sphere_rotations,
                                    new_sphere_positions, new_sphere_rotations,
-                                   combined_Oa_for_ab2, timestep)
+                                   combined_Oa_for_ab2, Ta_out, timestep)
 
 
 def do_we_have_all_size_ratios(error, element_sizes, lam_range, num_spheres):
