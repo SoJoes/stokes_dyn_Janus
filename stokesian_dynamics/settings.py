@@ -164,3 +164,20 @@ trace_paths = 0
 
 # 2D Plot? This removes the third axis.
 two_d_plot = True
+
+#--------------------------------------------
+using_pytential=False
+if setup_number>=11:
+    using_pytential = True
+
+if using_pytential:
+    import logging
+
+    logging.basicConfig(level=logging.INFO)  # INFO for more progress info
+
+    # want to move this outside function to see if helps w caching things
+    import pyopencl as cl
+
+    cl_ctx = cl.create_some_context()
+    queue = cl.CommandQueue(cl_ctx)
+    actx = PyOpenCLArrayContext(queue)

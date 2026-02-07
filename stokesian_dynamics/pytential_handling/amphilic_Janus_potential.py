@@ -12,6 +12,7 @@ from pytential.target import PointsTarget
 
 # my file
 from pytential_handling.my_laplace_kernel import ScreenedLaplaceKernel
+from settings import actx
 import sys
 from os import devnull
 
@@ -52,8 +53,6 @@ class Janus_particle_array:
                     b=position) for position in positions]
 
 def amphilics(visualize=False, particle_pos=None, particle_facing=None):
-    global actx
-
     base_mesh = make_curve_mesh(
                 partial(ellipse, 1),
                 np.linspace(0, 1, nelements+1),
