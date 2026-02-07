@@ -155,6 +155,8 @@ def generate_frame(frameno, grand_mobility_matrix, view_graphics=True,
     global extract_force_on_wall_due_to_dumbbells
     global last_velocities, last_velocity_vector, checkpoint_start_from_frame
     global feed_every_n_timesteps
+    global actx
+
     if not (error):
         time_start = time.time()
 
@@ -181,8 +183,6 @@ def generate_frame(frameno, grand_mobility_matrix, view_graphics=True,
         if not np.array_equal(box_bottom_left-box_top_right, np.array([0, 0, 0])):
             periodic = True
         else:
-            print("HELLO?")
-            print(box_bottom_left, box_top_right)
             periodic = False
 
         # Input the positions of the particles
