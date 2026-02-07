@@ -157,6 +157,7 @@ def generate_frame(frameno, grand_mobility_matrix, view_graphics=True,
     global feed_every_n_timesteps
     if not (error):
         time_start = time.time()
+
         if frameno % 20 == 0 and frameno > 0:
             print("[Generating " + filename + "]")
         processing_message = (
@@ -899,6 +900,18 @@ if error == 0:
                                       interval=200)
         plt.show()
     else:
+        if setup_number >= 11:
+            global actx
+            # for more efficient caching
+            import logging
+            logging.basicConfig(level=logging.INFO)  # INFO for more progress info
+
+            # want to move this outside function to see if helps w caching things
+            import pyopencl as cl
+            cl_ctx = cl.create_some_context()
+            queue = cl.CommandQueue(cl_ctx)
+            actx = PyOpenCLArrayContext(queue)
+
         for frameno in range(checkpoint_start_from_frame, num_frames):
             generate_frame(frameno, grand_mobility_matrix, view_graphics,
                            cutoff_factor, viewbox_bottomleft_topright,
