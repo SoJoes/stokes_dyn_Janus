@@ -88,6 +88,7 @@ def euler_timestep_rotation(sphere_positions, sphere_rotations,
         alpha = Ta_out[i][1] / moment_of_inertia # angular acceleration
         omega = timestep * alpha
 
+        print("ANGULAR VELOCITIES")
         print(alpha, omega) # for debugging
 
         O = O + omega # angular velocity of sphere itself (hopefully this works!)
