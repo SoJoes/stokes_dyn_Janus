@@ -109,6 +109,7 @@ def euler_timestep_rotation(sphere_positions, sphere_rotations,
         Oa_Ta_out = Oa_out + Ta_out
 
         if np.array_equal(Oa_Ta_out[i], np.array([0., 0., 0.])):
+            print("Set rotation matric to 0")
             rot_matrix = np.identity(3)
         else:
             Otest = (np.abs(Oa_Ta_out[i] / O)).astype('float')
@@ -119,7 +120,8 @@ def euler_timestep_rotation(sphere_positions, sphere_rotations,
             rot_matrix[:,0] = np.cross(Oa_Ta_out[i], perp1) / O
             rot_matrix[:,1] = np.cross(Oa_Ta_out[i],np.cross(Oa_Ta_out[i], perp1)) / O**2
             rot_matrix[:,2] = Oa_Ta_out[i] / O
-
+        print("My new basis <3")
+        print(rot_matrix)
         for j in range(2):
             ''' rb0 is the position ("r") of the endpoint of the pointy
             rotation vector in the external (x,y,z) frame ("b") at the
