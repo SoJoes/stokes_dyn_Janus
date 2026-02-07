@@ -262,14 +262,14 @@ def generate_frame(frameno, grand_mobility_matrix, view_graphics=True,
                     new_sphere_rotations = euler_timestep_rotation(
                         sphere_positions, sphere_rotations,
                         new_sphere_positions, new_sphere_rotations,
-                        Oa_out_plus_infinities_k1, timestep)
+                        Oa_out_plus_infinities_k1, Ta_out_k1, timestep)
                 else:
                     new_sphere_positions = ab2_timestep(
                         sphere_positions, Ua_out_plus_infinities_k1, last_velocities[0], timestep)
                     new_sphere_rotations = ab2_timestep_rotation(
                         sphere_positions, sphere_rotations,
                         new_sphere_positions, new_sphere_rotations,
-                        Oa_out_plus_infinities_k1, last_velocities[3],
+                        Oa_out_plus_infinities_k1, last_velocities[3], Ta_out_k1,
                         timestep)
                 if periodic:
                     new_sphere_positions = wrap_around(

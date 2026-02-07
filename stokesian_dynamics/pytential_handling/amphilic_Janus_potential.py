@@ -55,6 +55,7 @@ def amphilics(visualize=False, particle_pos=None, particle_facing=None):
     import logging
     logging.basicConfig(level=logging.INFO)  # INFO for more progress info
 
+    # want to move this outside function to see if helps w caching things
     import pyopencl as cl
     cl_ctx = cl.create_some_context()
     queue = cl.CommandQueue(cl_ctx)

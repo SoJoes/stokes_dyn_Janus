@@ -72,7 +72,7 @@ def did_something_go_wrong_with_dumbells(error, dumbbell_deltax,
 @njit(cache=True)
 def euler_timestep_rotation(sphere_positions, sphere_rotations,
                             new_sphere_positions, new_sphere_rotations,
-                            Oa_out, timestep):
+                            Oa_out, Ta_out, timestep):
     """Returns new rotation vectors after an Euler timestep using Oa_out as the
     velocity.
 
@@ -148,7 +148,7 @@ def euler_timestep_rotation(sphere_positions, sphere_rotations,
 
 def ab2_timestep_rotation(sphere_positions, sphere_rotations,
                           new_sphere_positions, new_sphere_rotations,
-                          Oa_out, Oa_out_previous, timestep):
+                          Oa_out, Oa_out_previous, Ta_out, timestep):
     """Returns new rotation vectors after an Adams-Bashforth 2 timestep using
     Oa_out as the velocity.
 
