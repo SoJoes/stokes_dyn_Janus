@@ -4,9 +4,11 @@
 #SBATCH -c 1
 
 #SBATCH -p ug-gpu-small
-#SBATCH --qos=short
-#SBATCH -t 00-00:20:00
+#SBATCH --qos=debug
 #SBATCH --job-name=dbxl46_pytential
+#SBATCH --gres=gpu
+
+export PYOPENCL_CTX='0'
 
 # Source the bash profile (required to use the module command)
 source /etc/profile
