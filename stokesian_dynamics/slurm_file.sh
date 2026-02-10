@@ -7,6 +7,9 @@
 #SBATCH --qos=debug
 #SBATCH --job-name=dbxl46_pytential
 
+#SBATCH -e stderr-file
+#SBATCH -o stdout-file
+
 export PYOPENCL_CTX='0'
 
 # Source the bash profile (required to use the module command)
