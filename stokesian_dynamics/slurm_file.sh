@@ -3,10 +3,9 @@
 #SBATCH -N 1
 #SBATCH -c 1
 
-#SBATCH -p ug-gpu-small
+#SBATCH -p cpu
 #SBATCH --qos=debug
 #SBATCH --job-name=dbxl46_pytential
-#SBATCH --gres=gpu
 
 export PYOPENCL_CTX='0'
 
