@@ -43,6 +43,8 @@ Fb_out = data1['Fb']
 DFb_out = data1['DFb']
 particle_rotations = data1['sphere_rotations']
 
+print(np.max(Fa_out))
+
 num_frames = positions_centres.shape[0]
 num_particles = positions_centres.shape[1]
 num_dumbbells = positions_deltax.shape[1]
