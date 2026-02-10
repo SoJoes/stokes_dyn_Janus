@@ -220,8 +220,8 @@ def pos_setup(n):
                            for i_x in range(nx)
                            for j_y in range(ny)]) + np.array([dx * nx/4, 0, dy * ny/4])
         my_rotations = np.ones(nx*ny) * np.pi
-        my_rotations[0] = 0
-        my_rotations[1] = 0
+        my_rotations[2] = 0
+        my_rotations[3] = 0
 
         # code modified from position 1
         num_spheres = nx*ny
