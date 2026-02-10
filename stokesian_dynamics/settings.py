@@ -114,7 +114,7 @@ start_saving_after_first_n_timesteps = 0
 save_positions_every_n_timesteps = 1
 save_forces_every_n_timesteps = 1
 save_forces_and_positions_to_temp_file_as_well = True
-save_to_temp_file_every_n_timesteps = 120
+save_to_temp_file_every_n_timesteps = 1
 
 if start_saving_after_first_n_timesteps > num_frames:
     print("WARNING: start_saving_after_first_n_timesteps > num_frames. "
