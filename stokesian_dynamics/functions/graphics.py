@@ -138,8 +138,8 @@ def plot_sphere(ax, frameno, position, previous_position, trace_paths, radius,
         pos3 = pos1
     line1 = plt.plot((pos1[0], pos2[0]), (pos1[1], pos2[1]),
                      (pos1[2], pos2[2]),sh2, linewidth=1, zorder=500)[0]
-    line2 = plt.plot((pos1[0], pos3[0]), (pos1[1], pos3[1]),
-                     (pos1[2], pos3[2]), sh3, linewidth=1, zorder=500)[0]
+    '''line2 = plt.plot((pos1[0], pos3[0]), (pos1[1], pos3[1]),
+                     (pos1[2], pos3[2]), sh3, linewidth=1, zorder=500)[0]'''
 
     linetrace = None
     if trace_paths > 0 and frameno % trace_paths == 0:
@@ -147,7 +147,7 @@ def plot_sphere(ax, frameno, position, previous_position, trace_paths, radius,
                              (previous_position[1], position[1]),
                              (previous_position[2], position[2]),
                              color=sphere_colour, linewidth=1)[0]
-    return (p, line1, line2, linetrace)
+    return (p, line1, linetrace) #line2, linetrace)
 
 
 def plot_dumbbell(ax, position, radius, dx, dumbbell_colour=['b', 'b'],
@@ -196,12 +196,12 @@ def plot_all_spheres(ax, frameno, posdata, previous_step_posdata, trace_paths,
     for i in range(sphere_positions.shape[0]):
         C = between0and1(np.linalg.norm(np.array(f_spheres[i], float)))
         sphere_colour = [C, 0, 1-C]
-        (p, l1, l2, ltrace) = plot_sphere(
+        (p, l1, ltrace) = plot_sphere(
             ax, frameno, sphere_positions[i, :],
             previous_sphere_positions[i, :], trace_paths, sphere_sizes[i],
             sphere_rotations[i], sphere_colour=sphere_colour)
         spheres.append(p)
-        sphere_lines.extend((l1, l2))
+        sphere_lines.append(l1)
         if trace_paths > 0 and frameno % trace_paths == 0:
             sphere_trace_lines.append(ltrace)
     return spheres, sphere_lines, sphere_trace_lines

@@ -19,12 +19,11 @@ sys.path.append("../stokesian_dynamics")  # Allows importing from SD directory
 from functions.graphics import (plot_all_spheres, plot_all_dumbbells,
                                 plot_all_torque_lines, plot_all_velocity_lines,
                                 plot_all_angular_velocity_lines)
-from functions.shared import add_sphere_rotations_to_positions, add_sphere_multirotations_to_positions
 
 
-filename = 'C:\\Users\sj000\Downloads\\2602071432-s11-i10-3fr-t1p0-M1-amphilic Janus particles.npz'
+filename = 'C:\\Users\sj000\Downloads\\2602081720-s11-i10-15fr-t1p0-M1-amphilic Janus particles.npz'
 graph_title = "testing"
-frameno = 3
+frameno = 15
 viewing_angle = (0, -90)
 viewbox_bottomleft_topright = np.array([[-5, -5, -5], [5, 5, 5]])
 two_d_plot = True
@@ -36,19 +35,20 @@ trace_paths = 0
 #output_folder = this_folder + "/../output/"
 
 #data1 = np.load(output_folder + filename + ".npz")
-for frame in range(frameno):
-    data1 = np.load(filename)
-    positions_centres = data1['centres']
-    positions_deltax = data1['deltax']
-    Fa_out = data1['Fa']
-    Fb_out = data1['Fb']
-    DFb_out = data1['DFb']
-    particle_rotations = data1['sphere_rotations']
+data1 = np.load(filename)
+positions_centres = data1['centres']
+positions_deltax = data1['deltax']
+Fa_out = data1['Fa']
+Fb_out = data1['Fb']
+DFb_out = data1['DFb']
+particle_rotations = data1['sphere_rotations']
 
-    num_frames = positions_centres.shape[0]
-    num_particles = positions_centres.shape[1]
-    num_dumbbells = positions_deltax.shape[1]
-    num_spheres = num_particles - num_dumbbells
+num_frames = positions_centres.shape[0]
+num_particles = positions_centres.shape[1]
+num_dumbbells = positions_deltax.shape[1]
+num_spheres = num_particles - num_dumbbells
+
+for frame in range(frameno):
     sphere_positions = positions_centres[frame, 0:num_spheres, :]
     sphere_rotations = particle_rotations[frame, 0:num_spheres, :]
     dumbbell_positions = positions_centres[frame, num_spheres:num_particles, :]

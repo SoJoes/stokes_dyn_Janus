@@ -657,7 +657,6 @@ def generate_frame(frameno, grand_mobility_matrix, view_graphics=True,
                 save_forces_every_n_timesteps > 0 and
                 save_forces_and_positions_to_temp_file_as_well and
                 frameno >= start_saving_after_first_n_timesteps):
-            print("3", type(saved_Fa_out))
             np.savez_compressed(output_folder + '/' + filename + legion_random_id + '_TEMP',
                                 Fa=saved_Fa_out, Fb=saved_Fb_out, DFb=saved_DFb_out, Sa=saved_Sa_out,
                                 centres=saved_element_positions, deltax=saved_deltax,
