@@ -18,4 +18,4 @@ source /etc/profile
 # Run your program (replace this with your program)
 source ~/pytential_stokes/pytential_stokes/venv/bin/activate
 
-python3 run_simulation.py 11 10 1 2 fte
+~/pytential_stokes/pytential_stokes/venv/bin/python run_simulation.py 11 10 1 2 fte
