@@ -5,7 +5,7 @@
 
 #SBATCH -p ug-gpu-small
 #SBATCH --qos="debug"
-#SBATCH -t 00-00:30:00
+#SBATCH -t 00-00:20:00
 #SBATCH --job-name=dbxl46_pytential
 
 # Source the bash profile (required to use the module command)
