@@ -4,7 +4,7 @@
 #SBATCH -c 1
 
 #SBATCH -p ug-gpu-small
-#SBATCH --qos=debug
+#SBATCH --qos=short
 #SBATCH -t 00-00:20:00
 #SBATCH --job-name=dbxl46_pytential
 
