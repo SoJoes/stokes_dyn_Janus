@@ -249,6 +249,11 @@ def input_ftsuoe(n, posdata, frameno, timestep, last_velocities,
         Ta_in = np.zeros((num_spheres, 3))
         Ta_in[:, 1] = hydrophobic_forces[2]
 
+        print("Max force")
+        print(np.max(Fa_in))
+        print("Max torque")
+        print(np.max(Ta_in))
+
         desc = "amphilic Janus particles"
 
     else:
