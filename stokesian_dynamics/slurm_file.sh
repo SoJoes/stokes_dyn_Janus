@@ -2,8 +2,9 @@
 
 #SBATCH -N 1
 #SBATCH -c 1
+#SBATCH --gres=gpu
 
-#SBATCH -p cpu
+#SBATCH -p ug-gpu-small
 #SBATCH --qos=debug
 #SBATCH --job-name=dbxl46_pytential
 
