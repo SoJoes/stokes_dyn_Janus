@@ -14,7 +14,9 @@
 module avail
 
 source /etc/profile
-module load intel-oneapi
+module load intel-oneapi/vtune
+module load intel-oneapi/mpi
+module load intel-oneapi/compiler
 module list
 
 VENV=/home3/dbxl46/pytential_stokes/pytential_stokes/myenv
