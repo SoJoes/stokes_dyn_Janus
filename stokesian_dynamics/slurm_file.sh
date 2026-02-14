@@ -16,5 +16,6 @@ export PYOPENCL_CTX='0'
 source /etc/profile
 source /home3/dbxl46/pytential_stokes/pytential_stokes/myenv/bin/activate
 
+which python
 python --version
 python run_simulation.py 11 10 1 2 fte
