@@ -1,7 +1,7 @@
 arraycontext @ git+https://github.com/inducer/arraycontext.git@1072c2ebb77977acf903f5396000aa92dfccab7e
 boxtree @ git+https://github.com/inducer/boxtree.git@0c6b8adcca5e35d4e0004c29503a5742491420cb
 cgen @ git+https://github.com/inducer/cgen.git@354930e21fc7a3af802f99a7485408a281a99c8b
-Cython==3.012
+Cython==3.0.12
 debugpy==1.8.0
 ffmpy==0.6.0
 genpy @ git+https://github.com/inducer/genpy.git@ed5f6c70150ed1f26dc1d3614d1e32f404b91309
