@@ -12,8 +12,19 @@
 
 export PYOPENCL_CTX='0'
 
-source /home3/dbxl46/pytential_stokes/pytential_stokes/myenv/bin/activate
+source /etc/profile
 
+echo "Before activation:"
 which python
 python --version
-python run_simulation.py 11 10 1 2 fte
+
+source /home3/dbxl46/pytential_stokes/pytential_stokes/myenv/bin/activate
+
+echo "After activation:"
+which python
+python --version
+echo "VIRTUAL_ENV=$VIRTUAL_ENV"
+
+/home3/dbxl46/pytential_stokes/pytential_stokes/myenv/bin/python --version
+
+/home3/dbxl46/pytential_stokes/pytential_stokes/myenv/bin/python \run_simulation.py 11 10 1 2 fte
