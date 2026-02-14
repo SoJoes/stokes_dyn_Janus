@@ -20,5 +20,8 @@ echo "Using interpreter:"
 which python
 python --version
 
+echo "Installed packages:"
+python -m pip list
+
 # Run your script
 python run_simulation.py 11 10 1 2 fte
