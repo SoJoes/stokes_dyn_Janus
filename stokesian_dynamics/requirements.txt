@@ -18,6 +18,7 @@ modepy @ git+https://github.com/inducer/modepy.git@93a912d315f59bb0a60022eef0161
 numba==0.59.1
 numba-cuda==0.2.0
 numpy==1.26.4
+psutil==5.9.5
 pyfmmlib==2024.1.1
 pylibcudf-cu12 @ https://pypi.nvidia.com/pylibcudf-cu12/pylibcudf_cu12-25.2.1-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl
 pylibcugraph-cu12==25.2.0
@@ -28,5 +29,6 @@ pyopencl==2026.1.2
 pytest==7.4.4
 python-apt==0.0.0
 pyvisfile @ git+https://github.com/inducer/pyvisfile.git@e4fe73599dba408d1b3c77604520d8a633666a1a
+scipy==1.11.4
 sumpy @ git+https://github.com/inducer/sumpy.git@b6d0310b5bcb2bff941f75d6604ac3ce3883a016
 sympy==1.13.1
