@@ -207,7 +207,7 @@ def amphilics(visualize=False, particle_pos=None, particle_facing=None):
     # find grad of potential
     from pytential.symbolic.primitives import grad
 
-    representation_sym_grad = grad(ambient_dim=2, operand = representation_sym)
+    representation_sym_grad = -grad(ambient_dim=2, operand = representation_sym)  # gives wrong result if not negative
     nabla_pot = bind(places, representation_sym_grad)(
       actx, sigma=gmres_result.solution, k=k)
 
