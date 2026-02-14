@@ -2,6 +2,7 @@
 
 #SBATCH -N 1
 #SBATCH -c 1
+#SBATCH --gres=gpu:1g.10gb:1
 
 #SBATCH -p cpu
 #SBATCH --qos=debug
