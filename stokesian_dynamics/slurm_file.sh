@@ -10,8 +10,11 @@
 #SBATCH -e stderr-file
 #SBATCH -o stdout-file
 
-export PYOPENCL_CTX='0'
+VENV=/home3/dbxl46/pytential_stokes/pytential_stokes/myenv
 source $VENV/bin/activate
+
+export PATH="$VENV/bin:$PATH"
+export PYOPENCL_CTX='0'
 
 echo "Using interpreter:"
 which python
