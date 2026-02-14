@@ -12,25 +12,16 @@
 
 source /etc/profile
 module load intel-oneapi
+module list
 
 VENV=/home3/dbxl46/pytential_stokes/pytential_stokes/myenv
 source $VENV/bin/activate
 
 export PATH="$VENV/bin:$PATH"
+
+python -c "import pyopencl as cl; print(cl.get_platforms())"
+
 export PYOPENCL_CTX='0'
-
-echo "Using interpreter:"
-which python
-python --version
-
-echo "Installed packages:"
-python -m pip list
-
-echo "Python location:"
-python -c "import sys; print(sys.executable)"
-echo "sys.path:"
-python -c "import sys; print(sys.path)"
-echo "site-packages contents:"
 ls $VENV/lib/python3.8/site-packages | head -20
 
 # Run your script
