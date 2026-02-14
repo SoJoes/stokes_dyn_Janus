@@ -11,10 +11,11 @@
 #SBATCH -o stdout-file
 
 export PYOPENCL_CTX='0'
-
-VENV=/home3/dbxl46/pytential_stokes/pytential_stokes/myenv
+source $VENV/bin/activate
 
 echo "Using interpreter:"
-$VENV/bin/python --version
+which python
+python --version
 
-$VENV/bin/python run_simulation.py 11 10 1 2 fte
+# Run your script
+python run_simulation.py 11 10 1 2 fte
