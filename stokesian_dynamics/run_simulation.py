@@ -13,11 +13,6 @@ by passing them in as arguments from the command line."""
 
 import sys
 import os
-
-venv_site_packages = "/home3/dbxl46/pytential_stokes/pytential_stokes/myenv/lib/python3.8/site-packages"
-if venv_site_packages not in sys.path:
-    sys.path.insert(0, venv_site_packages)
-
 import numpy as np
 import time
 import socket
