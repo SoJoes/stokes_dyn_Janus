@@ -10,6 +10,9 @@
 #SBATCH -e stderr-file
 #SBATCH -o stdout-file
 
+source /etc/profile
+module load intel-oneapi
+
 VENV=/home3/dbxl46/pytential_stokes/pytential_stokes/myenv
 source $VENV/bin/activate
 
