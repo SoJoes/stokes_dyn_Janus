@@ -8,7 +8,7 @@ genpy @ git+https://github.com/inducer/genpy.git@ed5f6c70150ed1f26dc1d3614d1e32f
 GitPython==3.1.44
 gmsh_interop @ git+https://github.com/inducer/gmsh_interop.git@d6cdae9534312b8f949f8d758329e7f9f9849431
 groovy==0.1.2
-isply==2026.1
+islpy==2026.1
 loopy @ git+https://github.com/inducer/loopy.git@9c96a1431906f717fecfb27cdaece1d154adc1a2
 matplotlib==3.8.4
 matplotlib-inline==0.1.7
