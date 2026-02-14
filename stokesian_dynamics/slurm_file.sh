@@ -16,7 +16,12 @@ source /etc/profile
 module load intel-oneapi/2022.1.2/vtune
 module load intel-oneapi/2022.1.2/mpi
 module load intel-oneapi/2022.1.2/compiler
+
+module show intel-oneapi
 module list
+
+clinfo
+which clinfo
 
 VENV=/home3/dbxl46/pytential_stokes/pytential_stokes/myenv
 source $VENV/bin/activate
