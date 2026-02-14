@@ -14,7 +14,7 @@ export PYOPENCL_CTX='0'
 
 # Source the bash profile (required to use the module command)
 source /etc/profile
-source home3/dbxl46/pytential_stokes/pytential_stokes/myenv/bin/activate
+source /home3/dbxl46/pytential_stokes/pytential_stokes/myenv/bin/activate
 
 python --version
 python run_simulation.py 11 10 1 2 fte
