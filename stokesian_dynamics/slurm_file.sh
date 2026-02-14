@@ -15,7 +15,8 @@ export PYOPENCL_CTX='0'
 # Source the bash profile (required to use the module command)
 source /etc/profile
 
-# Run your program (replace this with your program)
+module load python/2.7.18
 source ~/pytential_stokes/pytential_stokes/venv/bin/activate
 
-~/pytential_stokes/pytential_stokes/venv/bin/python run_simulation.py 11 10 1 2 fte
+which python
+python run_simulation.py 11 10 1 2 fte
