@@ -4,7 +4,7 @@
 #SBATCH -c 1
 #SBATCH --gres=gpu:1g.10gb:1
 
-#SBATCH -p cpu
+#SBATCH -p ug-gpu-small
 #SBATCH --qos=debug
 #SBATCH --job-name=dbxl46_pytential
 
