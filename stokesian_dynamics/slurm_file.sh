@@ -10,7 +10,7 @@
 #SBATCH -e stderr-file
 #SBATCH -o stdout-file
 
-module avail | grep -i intel
+module avail
 
 source /etc/profile
 module load intel-oneapi
