@@ -11,8 +11,6 @@
 #SBATCH -e stderr-file
 #SBATCH -o stdout-file
 
-module avail
-
 source /etc/profile
 module load intel-oneapi/2022.1.2/vtune
 module load intel-oneapi/2022.1.2/mpi
@@ -26,7 +24,6 @@ export PATH="$VENV/bin:$PATH"
 python -c "import pyopencl as cl; print(cl.get_platforms())"
 
 export PYOPENCL_CTX='0'
-ls $VENV/lib/python3.8/site-packages | head -20
 
 pip list | grep -E "numpy|pytential|sumpy|pyopencl"
 
