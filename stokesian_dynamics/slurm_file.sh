@@ -29,3 +29,5 @@ pip list | grep -E "numpy|pytential|sumpy|pyopencl"
 
 # Run your script
 python -O run_simulation.py 11 10 1 2 fte
+
+echo "We ran your script <3"

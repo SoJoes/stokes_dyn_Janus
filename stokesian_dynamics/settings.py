@@ -178,4 +178,6 @@ if using_pytential:
 
     cl_ctx = cl.create_some_context()
     queue = cl.CommandQueue(cl_ctx)
-    actx = PyOpenCLArrayContext(queue)
+
+    allocator = cl.tools.MemoryPool(cl.tools.ImmediateAllocator(queue))
+    actx = PyOpenCLArrayContext(queue, allocator=allocator)
